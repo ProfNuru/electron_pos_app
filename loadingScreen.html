@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COST</title>
+
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            overflow:hidden;
+        }
+        *{
+            box-sizing:border-box;
+        }
+        #loadingWrapper{
+            position:relative;
+            overflow:hidden;
+        }
+        #loadingWrapper img{
+            height:100vh;
+        }
+        #loadingWrapper small{
+            position:absolute;
+            z-index:20;
+            top:45%;
+            left:37px;            
+            color:aliceblue;
+            font-size:1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div id="loadingWrapper">
+        <img src="static/img/LOADING SCREEN IMAGE.png" alt="LOADING SCREEN IMAGE">
+        <small id="loading_msg">Loaded <span id='to_be_loaded'></span></small>
+    </div>
+
+    
+    <script src="static/js/loadingWindow.js"></script>
+</body>
+</html>

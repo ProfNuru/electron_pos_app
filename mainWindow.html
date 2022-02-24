@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="static/css/bootstrap.min.css">
+
+        <!-- Font Awesome CSS -->
+        <link rel="stylesheet" type="text/css" href="static/css/all.css">
+
+        <!-- Main CSS -->
+        <link rel="stylesheet" type="text/css" href="static/css/main.css">
+
+        <title>GB COST</title>
+    </head>
+    <body>
+        <div id="wrapper" class="d-flex align-items-start">
+            <!-- Side Navigation -->
+            <div id="side-navigation" class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+              <button class="side-nav-tabs nav-link active" id="v-pills-home-tab"
+              data-bs-toggle="pill" data-bs-target="#v-pills-home"
+              type="button" role="tab" aria-controls="v-pills-home"
+              aria-selected="true">
+                <i class="fas fa-columns"></i>
+              </button>
+
+              <button class="side-nav-tabs nav-link" id="v-pills-sell-tab"
+              data-bs-toggle="pill" data-bs-target="#v-pills-sell"
+              type="button" role="tab" aria-controls="v-pills-sell"
+              aria-selected="false">
+                <i class="fas fa-shopping-cart"></i>
+              </button>
+              
+              <button class="side-nav-tabs nav-link" id="v-pills-inventory-tab"
+              data-bs-toggle="pill" data-bs-target="#v-pills-inventory"
+              type="button" role="tab" aria-controls="v-pills-inventory"
+              aria-selected="false">
+                <i class="fas fa-database"></i>
+              </button>
+
+              <button class="side-nav-tabs nav-link" id="v-pills-suppliers-tab"
+              data-bs-toggle="pill" data-bs-target="#v-pills-suppliers"
+              type="button" role="tab" aria-controls="v-pills-suppliers"
+              aria-selected="false">
+                <i class="fas fa-truck"></i>
+              </button>
+
+              <button class="side-nav-tabs nav-link" id="v-pills-analytics-tab"
+              data-bs-toggle="pill" data-bs-target="#v-pills-analytics"
+              type="button" role="tab" aria-controls="v-pills-analytics"
+              aria-selected="false">
+                <i class="fas fa-chart-area"></i>
+              </button>
+
+              <button class="side-nav-tabs nav-link" id="v-pills-customers-tab"
+              data-bs-toggle="pill" data-bs-target="#v-pills-customers"
+              type="button" role="tab" aria-controls="v-pills-customers"
+              aria-selected="false">
+                <i class="fas fa-address-card"></i>
+              </button>
+
+              <!--  -->
+
+              <button class="side-nav-tabs nav-link" id="v-pills-settings-tab"
+              data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+              type="button" role="tab" aria-controls="v-pills-settings"
+              aria-selected="false">
+                <i class="fas fa-cogs"></i>
+              </button>
+            </div>
+
+            <!-- Main -->
+            <div class="tab-content" id="v-pills-tabContent">
+              <!-- Top Notification Area -->
+              <div id="top-notification">
+                <!-- <div class="alert alert-warning"><span class="alert-type">Out of Stock</span> <span class='alert-msg'>Item XYZ</span></div> -->
+              </div>
+
+              <!-- DASHBOARD -->
+              <div class="side-nav-contents tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                  <div class="revenue-summary row align-items-end">
+                    <div class="total-revenue col-3">
+                      <h6>Daily Sales</h6>
+                      <h1 id="daily-net-total"></h1>
+                    </div>
+                    <div class="change-in-revenue col-2">
+                      <!-- <p><span class="decrease"><i style="font-size:1.5em" class="fas fa-caret-down"></i>
+                        <span class="currency">GHC</span> 1,500</span>
+                        <span class="increase"><i style="font-size:1.5em" class="fas fa-caret-up"></i>
+                        <span class="currency">GHC</span> 1,500</span></p> -->
+                      <button id="reload-window-btn" class="btn btn-success"><i class="fas fa-sync-alt"></i> Refresh Dashboard</button>
+                    </div>
+                    <div class="date-and-time col-7">
+                      <h3 class="current-date">
+                        <span id="date-day">Day</span>,
+                        <span id="date-month">Month</span>
+                        <span id="date-num">00</span>,
+                        <span id="date-year">Year</span>
+                      </h3>
+                      <h4 class="current-time">
+                        <span id="hour">00</span> :
+                        <span id="minutes">00</span> :
+                        <span id="seconds">00</span>
+                        <span id="period">AM</span>
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div class="row mt-3">
+                    <div class="main-dashboard-content col-9">
+                      <div class="database-summary-cards">
+                        <div class="sales-summary-card">
+                          <div class="summary-text">
+                            <h6 class="summary-title">Daily Gross Sales</h6>
+                            <h3 class="summary-value"><span class="currency"></span></h3>
+                            <h3 class="summary-value"><span id="daily-gross-sales"></span></h3>
+                          </div>
+                          <div class="summary-icon">
+                            <i class="fas fa-chart-bar"></i>
+                          </div>
+                        </div>
+                        <div class="inventory-summary-card">
+                          <div class="summary-text">
+                            <h6 class="summary-title">Inventory</h6>
+                            <h5 class="summary-value">Quantity Sold: 
+                              <span style="color:#700" id="daily-qty-sold"></span></h5>
+                            
+                            <h5 class="summary-value">In Stock: 
+                              <span style="color:#700" id="total-qty-in-stock"></span></h5>
+                            <!-- <small class="summary-change">
+                              <span class="change-percent">1.3%</span>
+                              <span class="change-icon"><i class="fas fa-arrow-up"></i></span>
+                              from yesterday</small> -->
+                          </div>
+                          <div class="summary-icon">
+                            <i class="fas fa-signal"></i>
+                          </div>
+                        </div>
+                        <div class="customers-summary-card">
+                          <div class="summary-text">
+                            <h6 class="summary-title">Total Receivables</h6>
+                            <h3 class="summary-value"><span class="currency"></span></h3>
+                            <h3 class="summary-value"><span id="total-receivables"></span></h3>
+                          </div>
+                          <div class="summary-icon">
+                            <i class="fas fa-chart-area"></i>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="revenue-chart-container">
+                        <input type="date" class="form-control" id="reset-chart" name="reset-chart">
+                        <div id="daily-sales-graph">
+                          <canvas id="revenue-chart"></canvas>
+                        </div>
+                      </div>
+
+                      <div class="quick-lists mt-3">
+                        <div class="nav-pills-and-actions">
+                          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link active" id="pills-items-tab"
+                                data-bs-toggle="pill" data-bs-target="#pills-items"
+                                type="button" role="tab" aria-controls="pills-items"
+                                aria-selected="true">Items</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link" id="pills-customers-tab"
+                                data-bs-toggle="pill" data-bs-target="#pills-customers"
+                                type="button" role="tab" aria-controls="pills-customers"
+                                aria-selected="false">Customers</button>
+                            </li>
+                          </ul>
+                          <div class="clickable-actions">
+                            <button class="btn btn-primary">Save Sales <i class="fas fa-save"></i></button>
+                            <button class="btn btn-success">Save Items <i class="fas fa-save"></i></button>
+                            <button class="btn btn-secondary">Save Customers <i class="fas fa-save"></i></button>
+                          </div>
+                        </div>
+                        <div class="tab-content" id="pills-tabContent">
+                          <div class="tab-pane fade show active" id="pills-items"
+                            role="tabpanel" aria-labelledby="pills-items-tab">
+                            <table class="table table-dark table-striped table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Available Qty</th>
+                                    <th scope="col">Unit Price</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="items-table-body">
+                                  <!-- <tr>
+                                    <th scope="row">1</th>
+                                    <td>Controller</td>
+                                    <td>Game pad, Game controller</td>
+                                    <td>10</td>
+                                    <td>240.00</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">2</th>
+                                    <td>HP Laptop</td>
+                                    <td>Laptop</td>
+                                    <td>10</td>
+                                    <td>2000.00</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">3</th>
+                                    <td>HDMI Cable</td>
+                                    <td>Latest HDMI</td>
+                                    <td>10</td>
+                                    <td>50.00</td>
+                                  </tr> -->
+                                </tbody>
+                            </table>
+                          </div>
+                          <div class="tab-pane fade" id="pills-customers"
+                            role="tabpanel" aria-labelledby="pills-customers-tab">
+                              <table class="table table-dark table-striped table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Contact</th>
+                                    <th scope="col">Total Purchases</th>
+                                    <th scope="col">Amount Purchased</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="customers-table-body">
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>John Doe</td>
+                                    <td>123 Main, Streetville</td>
+                                    <td>0123456789</td>
+                                    <td>2,300</td>
+                                    <td>01/01/2022</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jane Doe</td>
+                                    <td>XYZ Road, Wakanda</td>
+                                    <td>0123456789</td>
+                                    <td>2,500</td>
+                                    <td>01/01/2022</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">3</th>
+                                    <td>Metallic Gajeel</td>
+                                    <td>ABC Guild, Fairytale</td>
+                                    <td>0123456789</td>
+                                    <td>1,500</td>
+                                    <td>01/03/2022</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="right-side col-3">
+                      <div class="products-sold-pie-chart">
+                        <canvas id="products-pie-chart"></canvas>
+                      </div>
+                      <div class="top-sales-bar-graph">
+                        <canvas id="product-sales-bar-graph"></canvas>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
+              <!-- POS -->
+              <div class="side-nav-contents tab-pane fade" id="v-pills-sell" role="tabpanel" aria-labelledby="v-pills-sell-tab">
+                  <div class="row">
+                    <div class="items-section col-8">
+                      <!-- Add Item Form -->
+                      <div class="search-and-add-item">
+                        <form class="search-form-wrap">
+                          
+                          <div class="input-with-dropdown">
+                            <input id="search-item-field" type="text" placeholder="Search Item...">
+                            <div id="toggle-item-suggestions"><i class="fas fa-caret-down"></i></div>
+                            <div class="input-dropdown" id="item-suggestions">
+                              <ul id="suggested-items">
+                                <li class="item-suggestion"><span class='item_id'>1</span> <span class='item'>Item</span></li>
+                              </ul>
+                            </div>
+                          </div>
+                          
+                          <button class="btn" id="add-to-cart-btn">Add</button>
+                        </form>
+                      </div>
+
+                      <!-- Items in Cart -->
+                      <div class="items-in-cart">
+                        <table class="table" id="cart-items">
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th class="item-th" scope="col">ITEM</th>
+                              <th scope="col">UNIT PRICE (GHC)</th>
+                              <th scope="col">QUANTITY</th>
+                              <th scope="col">SUBTOTAL (GHC)</th>
+                            </tr>
+                          </thead>
+                          <tbody id="cart-items-table">
+                            <!-- Cart List -->
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <!-- Recently Added Items -->
+                      <div class="recently-added">
+                        <h5>INVOICES ISSUED: <span class="current-date"></span></h5>
+                        <h6><span id="inv-count"></span></h6>
+                        <div class="daily-invoices">
+                          <table class="table table-dark table-striped table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Customer</th>
+                                <th scope="col">Sale Type</th>
+                                <th scope="col">Grand Total</th>
+                              </tr>
+                            </thead>
+                            <tbody id="daily-invoices-table-body">
+                              <!-- <tr>
+                                <th scope='row'>1</th>
+                                <td>John Doe</td>
+                                <td>Cash</td>
+                                <td>240.00</td>
+                              </tr> -->
+                            </tbody>
+                        </table>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="customer-and-totals col-4">
+                      <div class="checkout-section">
+                        <form id="customer-details-form">
+                          <div class="form-fields">
+                            <div class="input-with-dropdown">
+                              <label for="customer-name">Customer</label>
+                              <input id="search-customer-field" list="customer-suggestions" type="text" name="customer-name">
+                              <div id="toggle-cust-suggestions"><i class="fas fa-caret-down"></i></div>
+                              <input type="hidden" id="cust-id-value">
+                              <div class="input-dropdown" id="customer-suggestions">
+                                <ul id="suggested-customers">
+                                  <!-- <li class="customer-suggestion"><span class='cust_id'>1</span> <span class='cust'>Customer</span></li> -->
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-fields">
+                            <label for="customer-contact">Contact</label>
+                            <input type="text" name="customer-contact" id="customer-contact">
+                          </div>
+                          <div class="form-fields">
+                            <label for="customer-address">Address</label>
+                            <textarea name="customer-address" rows="3" id="customer-address"></textarea>
+                          </div>
+                        </form>
+
+                        <div class="cart-totals">
+                          <table class="table" id="cart-totals">
+                            <tbody>
+                              <tr>
+                                <td class="checkout-labels">Sub Total</td>
+                                <td id="subtotal-amount" class="checkout-totals">240.00</td>
+                              </tr>
+                              <tr>
+                                <td class="checkout-labels">Discount</td>
+                                <td id="discount-amount" class="checkout-totals">
+                                  <input type="text" name="discount-value" id="discount-value" value="0.00">
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="checkout-labels">GRAND TOTAL</td>
+                                <td id="grand-total-amount" class="grand-total checkout-totals">240.00</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class="pos-btns">
+                            <button type="button" class="btn btn-success" id="complete-sale-btn">
+                              <i class="fas fa-shopping-cart"></i> COMPLETE SALE
+                            </button>
+                            <!-- Open modal to select between CASH OR CREDIT SALE -->
+                            <button class="btn btn-danger" id="clear-cart-btn"><i class="fas fa-broom"></i> CLEAR</button>
+                          </div>
+                          <div class="note-to-customer">
+                            <h3>Note to customer:</h3>
+                            <textarea name="inv-note" id="inv-note" rows="3"></textarea>
+                          </div>
+
+                          <!-- Confirm checkout Modal -->
+                          <div class="modal fade" id="cash-or-credit-modal" tabindex="-1" aria-labelledby="cash-or-credit-modalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="cash-or-credit-modalLabel">Cash or Credit Sale</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <div id="invoice-notification">
+                                    <!-- <div class="alert alert-warning"><span class="alert-type">Out of Stock</span> <span class='alert-msg'>Item XYZ</span></div> -->
+                                  </div>
+                                  <form>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="cash-or-credit" id="cash-sale-option" value="cash" checked>
+                                      <label class="form-check-label" for="cash-sale-option">
+                                        Cash
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="cash-or-credit" id="credit-sale-option" value="credit">
+                                      <label class="form-check-label" for="credit-sale-option">
+                                        Credit
+                                      </label>
+                                    </div>
+                                  </form>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-primary" id="checkout-btn"><i class="fas fa-print"></i> Complete Sale</button>
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- invoiceModal -->
+                          <div class="modal fade" id="invoiceModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="invoiceModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="invoiceModalLabel">Print Invoice</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="print-invoice">
+                                  <div id="invoice-wrapper">
+                                    <div id="invoice-content">
+                                        <div class="invoice-header">
+                                            <div class="business-details">
+                                                <h6 id="inv-business-name">GuildBytes Tech Solutions</h6>
+                                                <h6 id="inv-business-address">Gurugu road, Tamale</h6>
+                                                <h6 id="inv-business-contact">0123456789</h6>
+                                            </div>
+                                            <div></div>
+                                            <div class="invoice-meta">
+                                                <h1>INVOICE</h1>
+                                                <h6 id="inv_id">#000</h6>
+                                            </div>
+                                        </div>
+                                        <div class="invoice-mid">
+                                            <div class="customer-details">
+                                                <h6>Bill to:</h6>
+                                                <h6 id="inv_customer_name">Jane Doe</h6>
+                                                <h6 id="inv_customer_address">123 Main</h6>
+                                            </div>
+                                            <div class="inv-date-balance">
+                                                <div class="labels">
+                                                    <h6>Date: </h6>
+                                                    <h6 class="bal-due">Balance Due: </h6>
+                                                </div>
+                                                <div class="label-values">
+                                                    <h6><span id="inv-issue-date">December 25, 2021</span></h6>
+                                                    <h6 class="bal-due"><span id="inv-balance-due"><span class="currency"></span> 1,000</span></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="invoice-items-table">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th style="text-align:left">Item</th>
+                                                        <th>Qty</th>
+                                                        <th class="inv-right-col">Rate (<span class="currency"></span>)</th>
+                                                        <th class="inv-right-col">Amount (<span class="currency"></span>)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="inv-items-list">
+                                                    <!-- <tr>
+                                                        <td class="inv-center-col">1</td>
+                                                        <td>Headphones</td>
+                                                        <td class="inv-center-col">2</td>
+                                                        <td class="inv-right-col">85.00</td>
+                                                        <td class="inv-right-col">170.00</td>
+                                                    </tr> -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="invoice-footer">
+                                            <div class="sales-signatory">
+                                                <p>..............................</p>
+                                                <p id="sales-person">John Doe</p>
+                                            </div>
+                                            <div class="invoice-totals">
+                                                <div class="labels">
+                                                    <h6>Sub Total: </h6>
+                                                    <h6>Discount: </h6>
+                                                    <h6>Grand Total: </h6>
+                                                </div>
+                                                <div class="label-values">
+                                                    <h6><span id="inv-subtotal">0.00</span></h6>
+                                                    <h6><span id="inv-discount">0.00</span></h6>
+                                                    <h6><span id="inv-grandtotal">0.00</span></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="invoice-ending">
+                                            <small id="terms-conditions">
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            </small>
+                                            <h6>Thank you</h6>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-outline-success" id="print-invoice-btn"><i class="fas fa-print"></i> Print</button>
+                                  <button type="button" class="btn btn-secondary" id="print-invoice-close-btn">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
+              <!-- SETTINGS -->
+              <div class="side-nav-contents tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                <div class="settings-page">
+                  <div class="nav flex-column nav-tabs me-3 settings-navs" id="v-nav-tab" role="tablist" aria-orientation="vertical">
+                    <button class="nav-link active" id="v-pills-preferences-tab" data-bs-toggle="tab" data-bs-target="#v-pills-preferences" type="button" role="tab" aria-controls="v-pills-preferences" aria-selected="true">
+                      <span><i class="fas fa-wrench"></i> Preferences</span> <span><i class="fas fa-angle-right"></i></span>
+                    </button>
+                    <button class="nav-link" id="v-pills-sales-tab" data-bs-toggle="tab" data-bs-target="#v-pills-sales" type="button" role="tab" aria-controls="v-pills-sales" aria-selected="false">
+                      <span><i class="fas fa-file-download"></i> Sales</span> <span><i class="fas fa-angle-right"></i></span>
+                    </button>
+                  </div>
+                  <div class="tab-content settings-contents" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-preferences" role="tabpanel" aria-labelledby="v-pills-preferences-tab">
+                      <div class="setting-cards">
+                        <div class="setting-description">
+                          <h4>Login On Startup</h4>
+                          <p>Toggle whether or not to require login when starting up</p>
+                        </div>
+                        <div class="setting-handle form-check form-switch">
+                          <input class="form-check-input switches" type="checkbox" role="switch" id="toggleLogin" checked>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-sales" role="tabpanel" aria-labelledby="v-pills-sales-tab">
+                      <div class="setting-cards">
+                        <div class="setting-description">
+                          <h4>Business Details on Invoices</h4>
+                          <p>Enter the details of your bussiness that appears on invoices you issue</p>
+                        </div>
+                        <div class="setting-handle form-check form-switch">
+                          <div class="mb-3">
+                            <label for="bussiness-name" class="form-label">Business Name</label>
+                            <input type="text" class="form-control" id="bussiness-name">
+                          </div>
+                          <div class="mb-3">
+                            <label for="bussiness-address" class="form-label">Address</label>
+                            <textarea class="form-control" id="bussiness-address"></textarea>
+                          </div>
+                          <div class="mb-3">
+                            <label for="bussiness-contact" class="form-label">Contact</label>
+                            <input type="text" class="form-control" id="bussiness-contact">
+                          </div>
+                          <div class="mb-3" style="text-align:right">
+                            <button class="btn btn-outline-secondary" id="save-business-details">Save</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="setting-cards">
+                        <div class="setting-description">
+                          <h4>Currency Symbol</h4>
+                          <p>Enter your preferred currency (GHS, USD, etc)</p>
+                        </div>
+                        <div class="setting-handle form-check form-switch">
+                          <input class="form-control" type="text" id="business-currency">
+                          <div class="mb-3" style="margin-top:5px;text-align:right">
+                            <button class="btn btn-outline-secondary" id="save-business-currency">Save</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+        <!-- Bootstrap JS -->
+        <script src="static/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Font Awesome JS -->
+        <script src="static/js/all.js"></script>
+
+        <!-- Custom DOM JS -->
+        <script src="static/js/chart.js"></script>
+        <script src="static/js/mainWindow.js"></script>
+    </body>
+</html>

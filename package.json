@@ -1,0 +1,25 @@
+{
+  "name": "guildbytes-pos-desktop",
+  "version": "1.0.0",
+  "description": "A standalone POS for desktop.",
+  "main": "main.js",
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "start": "electron .",
+    "watch": "nodemon --exec electron ."
+  },
+  "type": "commonjs",
+  "author": "GuildBytes Tech Solutions",
+  "license": "ISC",
+  "dependencies": {
+    "chart.js": "^3.6.2",
+    "currency.js": "^2.0.4",
+    "electron": "^16.0.2",
+    "nodemon": "^2.0.15",
+    "print-js": "^1.6.0",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "electron-builder": "^22.14.5"
+  }
+}
